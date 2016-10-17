@@ -1,5 +1,5 @@
-<?php 
-session_start(); 
+<?php
+session_start();
 include_once ("funcionalidades.php");
 
 function validarComplejidad($comp){
@@ -8,22 +8,15 @@ function validarComplejidad($comp){
 }
 function guardarPregunta(){
 	$mysqli = conect();
-	$num_pregunta = mysqli_query($mysqli, "select * from pregunta where Numero = (select MAX(Numero) from pregunta)");
-	$cont= mysqli_num_rows($num_pregunta);
-	$numero=0;
-	if($cont!=0){
-		$row = mysqli_fetch_assoc( $num_pregunta );
-		$numero = $row['Numero']+1;
-	}
 	$comp=$_POST['complejidad'];
 	$email=$_SESSION["email"];
 	$pregunta=$_POST['pregunta'];
 	$respuesta=$_POST['respuesta'];
-	
+
 	if(!validarComplejidad($comp)){
 		$comp=0;
 	}
-	$sql="INSERT INTO pregunta(Numero, Email, Pregunta, Respuesta, Complejidad) VALUES ($numero,'$email','$pregunta','$respuesta',$comp)";
+	$sql="INSERT INTO pregunta(Email, Pregunta, Respuesta, Complejidad) VALUES ('$email','$pregunta','$respuesta',$comp)";
 	if (!mysqli_query($mysqli ,$sql)){
 		echo "Error: " . mysqli_error($mysqli);
 		return;
@@ -31,12 +24,12 @@ function guardarPregunta(){
 	else{
 		echo 'Pregunta almacenada, si desea almacenar otra pregunta <a href="InsertarPregunta.php">pulsa aqui</a>.';
 	}
-	
+
 	mysqli_close($mysqli);
 }
 
 function crearFormularioPregunta(){
-	echo 
+	echo
 		'<form id="inspregunta" method="post" action="InsertarPregunta.php">
 					<table BORDER=0 align="center">
 						<tr>
@@ -84,7 +77,7 @@ function crearFormularioPregunta(){
 		<?php include('../adds/navegation.php'); ?>
 		<section class="main" id="s1">
 			<div>
-				<?php 
+				<?php
 					if(isLogueado()){
 						if(isset($_POST['respuesta']) && isset($_POST['pregunta'])){
 							guardarPregunta();
@@ -103,4 +96,3 @@ function crearFormularioPregunta(){
 	</div>
 </body>
 </html>
-

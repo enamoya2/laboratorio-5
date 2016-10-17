@@ -13,7 +13,7 @@ function conect(){
 function isLogueado(){
 	if (isset($_SESSION['email']))
 		return true;
-	else 
+	else
 		return false;
 }
 
