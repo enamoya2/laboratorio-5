@@ -3,7 +3,7 @@ session_start();
 include_once ("funcionalidades.php");
 
 function crearFormLogin(){
-	echo 
+	echo
 		'<form action="login.php" method="post" class="login">
 			<h2> Identificacion de Usuario </h2>
 			<div>Username<input name="email" type="text" required></div>
@@ -30,6 +30,11 @@ function verificarLogin($email, $pass){
 		$_SESSION["email"] = $row['Email'];
 		$_SESSION["nombre"] = $row['Nombre'];
 		//$_SESSION["rol"] = $row['Rol'];
+		$sql="INSERT INTO conexiones(Email, Hora) VALUES ('$email','$date')";
+		if (!mysqli_query($mysqli ,$sql)){
+			echo "Error: " . mysqli_error($mysqli);
+			return;
+		}
 
 		header("location:InsertarPregunta.php");
 	}
@@ -50,7 +55,7 @@ function verificarLogin($email, $pass){
 	<?php include('../adds/navegation.php'); ?>
     <section class="main" id="s1">
 		<div>
-		<?php			
+		<?php
 			if(!isLogueado()){
 				if(isset($_POST['email']) && isset($_POST['pass'])){
 					$email = $_POST['email'];
