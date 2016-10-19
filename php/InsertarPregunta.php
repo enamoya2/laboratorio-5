@@ -26,6 +26,7 @@ function guardarPregunta(){
 	}
 
 	mysqli_close($mysqli);
+	anadirAccion("insertar_pregunta");
 }
 
 function crearFormularioPregunta(){

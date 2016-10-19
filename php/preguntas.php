@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 include_once ("funcionalidades.php");
 
 function imprimirPreguntas(){
@@ -12,6 +12,7 @@ function imprimirPreguntas(){
 	echo '</table>';
 	$pregunta->close();
 	mysqli_close($mysqli);
+	anadirAccion("ver_preguntas");
 }
 ?>
 

@@ -35,6 +35,9 @@ function verificarLogin($email, $pass){
 			echo "Error: " . mysqli_error($mysqli);
 			return;
 		}
+		$resultado = mysqli_query($mysqli, "select * from conexiones where Email='$email' and Hora='$date'");
+		$conexion = mysqli_fetch_assoc( $resultado );
+		$_SESSION["conexion"] = $conexion['Identificador'];
 
 		header("location:InsertarPregunta.php");
 	}
